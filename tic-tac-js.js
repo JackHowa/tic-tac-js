@@ -36,7 +36,7 @@ function determineHowWon(indexWinner) {
 // part of the assignment I saw was to figure out how the winner was won 
 function playGame(wholeBoard) {
 	let indexWinner;
-	for (let i = 0; i <= WINNING_SOLUTIONS.length; i++) {
+	for (let i = 0; i < WINNING_SOLUTIONS.length; i++) {
 		if (isWinner(wholeBoard, WINNING_SOLUTIONS[i]) == true) {
 			indexWinner = i;
 
@@ -51,7 +51,9 @@ function playGame(wholeBoard) {
 // simple check for whether array of indices have values in any of the inputted spots 
 function isWinner(inputArray, targetIndex) {
 	let targetValues = inputArray.filter((input, index) => targetIndex.includes(index)); // ["X","X","X"] 
-	return targetValues.every(value => value != ""); // true if there's not empty strings in any of the values
+
+	// currently take in everything except for default front-end value of _
+	return targetValues.every(value => value != "" && value != "_"); 
 };
 
 function runner(wholeBoard) {
