@@ -1,4 +1,4 @@
-const potentialSlots = document.querySelectorAll('#js-whole-board span');
+const potentialSlots = document.querySelectorAll('.board__cell');
 
 potentialSlots.forEach(potentialSlot => {
   potentialSlot.addEventListener('click', handleClick);
@@ -26,8 +26,23 @@ function handleButtonClick(e) {
 	answerWinner(runner(wholeBoardValues));
 }
 
+const checkSolutionOutput = document.querySelector("#js-how-win");
+
 function answerWinner(answer) {
-	const checkSolutionButton = document.querySelector("#js-how-win");
-	checkSolutionButton.innerHTML = answer;
+	checkSolutionOutput.innerHTML = answer;
+}
+
+// reset 
+const resetBoardButton = document.querySelector("#js-reset-board-button");
+resetBoardButton.addEventListener('click', handleResetClick);
+
+function handleResetClick(e) {
+	// reset all of the slots
+	potentialSlots.forEach(potentialSlot => {
+		potentialSlot.innerHTML = "_";
+	})
+
+	// reset the win message 
+	checkSolutionOutput.innerHTML = "";
 }
 
