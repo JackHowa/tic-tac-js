@@ -1,4 +1,4 @@
-const potentialSlots = document.querySelectorAll('.board__cell');
+const potentialSlots = document.querySelectorAll('.js-board__cell');
 
 potentialSlots.forEach(potentialSlot => {
   potentialSlot.addEventListener('click', handleClick);
