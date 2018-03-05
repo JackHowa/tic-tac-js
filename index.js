@@ -11,10 +11,16 @@ function handleClick(e) {
     // check if this equal to itself 
     if (slot === this) {
 			slot.innerHTML = "X";
+
+			// could "unfilled" the slots that are open 
+			// findUnfilleds(); 
+			// in this way, the css could keep track of which ones are open without calling each time 
 			slot.classList.add("js-board__cell--filled");
     }
 	});
-	
+	// before the computer move may want to check for winner
+
+
 	// could build the computer into this part
 	computerMove();
 }
