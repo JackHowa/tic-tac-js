@@ -53,6 +53,12 @@ function isWinner(inputArray, targetIndex) {
 	let targetValues = inputArray.filter((input, index) => targetIndex.includes(index)); // ["X","X","X"] 
 
 	// currently take in everything except for default front-end value of _
+	// will have to figure out who won not just that there's a winner 
+	// may need to make this isWinner function more of a decider per person 
+	// like each person's move will have an is winner attached to it
+	// will have to pass in the target character into the parameter 
+	// for instance, could be default x 
+	// because currently it 
 	return targetValues.every(value => value != "" && value != "_"); 
 };
 
