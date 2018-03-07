@@ -10,7 +10,7 @@ function handleClick(e) {
 	this.classList.add("js-board__cell--filled");
 
 	// before the computer move may want to check for winner
-	checkForWinner();
+	checkForWinner("X");
 
 	// could build the computer into this part
 	computerMove();
@@ -29,14 +29,16 @@ function computerMove() {
 	let randomComputerFilledSlot = openSlots.item(potentialIndex);
 	randomComputerFilledSlot.innerHTML = "O";
 	randomComputerFilledSlot.classList.add("js-board__cell--filled");
+
+	checkForWinner("O");
 }
 
-function checkForWinner() {
+function checkForWinner(targetCharacter) {
 	let wholeBoardValues = [];
 	potentialSlots.forEach(potentialSlot => {
 		wholeBoardValues.push(potentialSlot.innerHTML);
 	})
-	answerWinner(runner(wholeBoardValues));
+	answerWinner(runner(wholeBoardValues, targetCharacter));
 }
 
 const checkSolutionOutput = document.querySelector("#js-how-win");
