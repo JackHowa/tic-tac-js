@@ -5,21 +5,12 @@ potentialSlots.forEach(potentialSlot => {
 });
 
 function handleClick(e) {
+	this.innerHTML = "X";
 
-	// loop through all of these 
-  potentialSlots.forEach(slot => {
-    // check if this equal to itself 
-    if (slot === this) {
-			slot.innerHTML = "X";
+	this.classList.add("js-board__cell--filled");
 
-			// could "unfilled" the slots that are open 
-			// findUnfilleds(); 
-			// in this way, the css could keep track of which ones are open without calling each time 
-			slot.classList.add("js-board__cell--filled");
-    }
-	});
 	// before the computer move may want to check for winner
-
+	checkForWinner();
 
 	// could build the computer into this part
 	computerMove();
@@ -34,19 +25,13 @@ function computerMove() {
 	// subtract one so it's 0 indexed 
 	let potentialIndex = openSlots.length - 1;
 
-	// let randomIndex = Math.floor(Math.random()*10) + 1; 
-
 	// this will always take the last indexed available spot
 	let randomComputerFilledSlot = openSlots.item(potentialIndex);
-	console.log(randomComputerFilledSlot);
 	randomComputerFilledSlot.innerHTML = "O";
 	randomComputerFilledSlot.classList.add("js-board__cell--filled");
 }
 
-const checkSolutionButton = document.querySelector("#js-check-board-button");
-checkSolutionButton.addEventListener('click', handleButtonClick);
-
-function handleButtonClick(e) {
+function checkForWinner() {
 	let wholeBoardValues = [];
 	potentialSlots.forEach(potentialSlot => {
 		wholeBoardValues.push(potentialSlot.innerHTML);
@@ -56,15 +41,25 @@ function handleButtonClick(e) {
 
 const checkSolutionOutput = document.querySelector("#js-how-win");
 
-function answerWinner(answer) {
-	checkSolutionOutput.innerHTML = answer;
+// define jquery sleep using Promise 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// reset 
-const resetBoardButton = document.querySelector("#js-reset-board-button");
-resetBoardButton.addEventListener('click', handleResetClick);
+// made it an async function
+async function answerWinner(answer) {
+	// only show a winner
+	if (answer != "No winner or unrecognized solution") {
+		checkSolutionOutput.innerHTML = answer;
 
-function handleResetClick(e) {
+		// one second delay 
+		await sleep(1000);
+		
+		resetBoard();
+	}
+}
+
+function resetBoard() {
 	// only have to reset the filled slots
 	filledSlots = document.querySelectorAll('.js-board__cell--filled');
 	filledSlots.forEach(filledSlot => {
